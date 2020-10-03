@@ -12,15 +12,17 @@ import java.io.Serializable;
  * @author 2106913
  */
 public class TipoItem implements Serializable{
-    private int id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private int id;
     private String descripcion;
 
     public TipoItem(int id, String descripcion) {
         this.id = id;
         this.descripcion = descripcion;
-    }
-
-    public TipoItem() {
     }
     
     

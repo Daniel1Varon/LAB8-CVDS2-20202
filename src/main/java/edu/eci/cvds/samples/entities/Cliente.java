@@ -7,11 +7,15 @@ package edu.eci.cvds.samples.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Cliente implements Serializable{
     
-    private String nombre;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private String nombre;
     private long documento;
     private String telefono;
     private String direccion;

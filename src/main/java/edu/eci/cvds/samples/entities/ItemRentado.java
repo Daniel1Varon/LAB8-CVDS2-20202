@@ -14,15 +14,32 @@ import java.sql.Date;
  */
 public class ItemRentado implements Serializable {
 
-    private int id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
+	private int id;
+	private int id_cli;
+	private int id_item;
     private Item item;
     private Date fechainiciorenta;
     private Date fechafinrenta;
-
-    public ItemRentado(int id, Item item, Date fechainiciorenta, Date fechafinrenta) {
+    
+    @SuppressWarnings("null")
+	public ItemRentado(int id, Item item, Date fechainiciorenta, Date fechafinrenta) {
         this.id = id;
-        this.item = item;
+        this.id_item = item.getId();
+        this.id_cli=(Integer) null;
+        this.item=item;
+        this.fechainiciorenta = fechainiciorenta;
+        this.fechafinrenta = fechafinrenta;
+    }
+    
+    public ItemRentado(int id, int id_cli,int id_item, Date fechainiciorenta, Date fechafinrenta) {
+        this.id = id;
+        this.setId_cli(id_cli);
+        this.setId_item(id_item);
         this.fechainiciorenta = fechainiciorenta;
         this.fechafinrenta = fechafinrenta;
     }
@@ -66,6 +83,22 @@ public class ItemRentado implements Serializable {
     public String toString() {
         return "ItemRentado{" + "id=" + id + ", item=" + item + ", fechainiciorenta=" + fechainiciorenta + ", fechafinrenta=" + fechafinrenta + '}';
     }
+
+	public int getId_cli() {
+		return id_cli;
+	}
+
+	public void setId_cli(int id_cli) {
+		this.id_cli = id_cli;
+	}
+
+	public int getId_item() {
+		return id_item;
+	}
+
+	public void setId_item(int id_item) {
+		this.id_item = id_item;
+	}
 
     
     
