@@ -15,7 +15,7 @@ public class MyBATISItemRentadoDAO implements ItemRentadoDAO{
 	public void save(ItemRentado ir) throws PersistenceException {
 		// TODO Auto-generated method stub
 		try{
-			itemRentadoMapper.addItemRentado(ir);
+			itemRentadoMapper.addItemRentado(ir.getId(),ir.getItemId(),ir.getFechainiciorenta(),ir.getFechafinrenta());
 		}
 		catch(org.apache.ibatis.exceptions.PersistenceException e){
 			throw new PersistenceException("Error al registrar el item rentado "+ir.toString(),e);

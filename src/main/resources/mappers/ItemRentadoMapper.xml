@@ -3,10 +3,6 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemRentadoMapper">
-	<insert parameterType="map" id="addItemRentado">
-        insert into VI_ITEMRENTADO (id,CLIENTES_documento,ITEMS_id,fechainiciorenta,fechafinrenta)
-        values (#{ir.id},#{ir.id_cli},#{ir.id_item},#{ir.fechainiciorenta},#{ir.fechafinrenta})
-    </insert>
     <resultMap type='ItemRentado' id='ItemRentadoResult'>
         <id property='id' column='id'/>
         <result property='fechainiciorenta' column='fechainiciorenta'/>

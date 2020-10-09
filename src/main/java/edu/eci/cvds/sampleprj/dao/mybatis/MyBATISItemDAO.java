@@ -1,5 +1,7 @@
 package edu.eci.cvds.sampleprj.dao.mybatis;
 
+import java.util.List;
+
 import com.google.inject.Inject;
 import edu.eci.cvds.sampleprj.dao.ItemDAO;
 import edu.eci.cvds.sampleprj.dao.PersistenceException;
@@ -29,6 +31,16 @@ public class MyBATISItemDAO implements ItemDAO{
 		}
 		catch(org.apache.ibatis.exceptions.PersistenceException e){
 			throw new PersistenceException("Error al consultar el item "+id,e);
+		}
+	}
+	
+	@Override
+	public List<Item> load() throws PersistenceException {
+		try{
+			return itemMapper.consultarItems();
+		}
+		catch(org.apache.ibatis.exceptions.PersistenceException e){
+			throw new PersistenceException("Error al consultar los items",e);
 		}
 
 

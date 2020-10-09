@@ -35,7 +35,7 @@ public class ServiciosAlquilerItemsStub implements ServiciosAlquiler {
        itemsrentados = new HashMap<>();
        tipositems = new HashMap<>();
        mapaPrestamosPorIdCliente=new HashMap<>();
-       //poblar();
+       poblar();
    }
 
    @Override
@@ -140,7 +140,7 @@ public class ServiciosAlquilerItemsStub implements ServiciosAlquiler {
            c.getRentados().add(ir);
            itemsDisponibles.remove(ir.getItem().getId());
            itemsrentados.put(item.getId(), ir);
-           mapaPrestamosPorIdCliente.put(item.getId(),docu);
+           mapaPrestamosPorIdCliente.put(item.getId(),(long) docu);
        } else {
            throw new ExcepcionServiciosAlquiler("No existe el cliente con el documento " + docu);
        }
@@ -238,5 +238,9 @@ public class ServiciosAlquilerItemsStub implements ServiciosAlquiler {
        clientes.put(c2.getDocumento(), c2);
        clientes.put(c3.getDocumento(), c3);
 
+   }
+   
+   public static void main(String args[]) {
+	   ServiciosAlquilerItemsStub servicio= new ServiciosAlquilerItemsStub();
    }
 }
