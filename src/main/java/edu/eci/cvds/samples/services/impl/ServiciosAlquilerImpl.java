@@ -15,23 +15,28 @@ import edu.eci.cvds.samples.entities.TipoItem;
 import edu.eci.cvds.samples.services.ExcepcionServiciosAlquiler;
 import edu.eci.cvds.samples.services.ServiciosAlquiler;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.List;
 
+import org.mybatis.guice.transactional.Transactional;
+
 @Singleton
 public class ServiciosAlquilerImpl implements ServiciosAlquiler {
-
+	
+	private static final int MULTA_DIARIA=5000;
+	
    @Inject
    private ItemDAO itemDAO;
    private ClienteDAO clienteDAO;
    private ItemRentadoDAO itemRentadoDAO;
    private TipoItemDAO tipoItemDAO;
-   private ServiciosAlquilerItemsStub servicioAlquilerItemsStub;
    
 
    @Override
    public int valorMultaRetrasoxDia(int itemId) {
-	   return servicioAlquilerItemsStub.valorMultaRetrasoxDia(1);
+	   return MULTA_DIARIA;
    }
 
    @Override
@@ -82,7 +87,11 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
    @Override
    public long consultarMultaAlquiler(int iditem, Date fechaDevolucion) throws ExcepcionServiciosAlquiler {
 	   try {
-		   return servicioAlquilerItemsStub.consultarMultaAlquiler(iditem,fechaDevolucion);
+		   ItemRentado it=itemRentadoDAO.load(iditem);
+           LocalDate fechaMinimaEntrega=it.getFechafinrenta().toLocalDate();
+           LocalDate fechaEntrega=fechaDevolucion.toLocalDate();
+           long diasRetraso = ChronoUnit.DAYS.between(fechaMinimaEntrega, fechaEntrega);
+           return diasRetraso*MULTA_DIARIA;
 	   } catch (Exception ex) {
            throw new ExcepcionServiciosAlquiler("Error al consultar la multa",ex);
        }
@@ -107,6 +116,7 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
    }
 
    @Override
+   @Transactional
    public void registrarAlquilerCliente(Date date, long docu, Item item, int numdias) throws ExcepcionServiciosAlquiler {
 	   try {
 		   Calendar calendar=Calendar.getInstance();
@@ -121,6 +131,7 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
    }
 
    @Override
+   @Transactional
    public void registrarCliente(Cliente cl) throws ExcepcionServiciosAlquiler {
 	   try {
 		   clienteDAO.save(cl);
@@ -132,21 +143,23 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
    @Override
    public long consultarCostoAlquiler(int iditem, int numdias) throws ExcepcionServiciosAlquiler {
 	   try {
-		   return servicioAlquilerItemsStub.consultarCostoAlquiler(iditem, numdias);
+		   return itemDAO.load(iditem).getTarifaxDia()*numdias;
 	   } catch (Exception ex) {
            throw new ExcepcionServiciosAlquiler("Error al consultar el costo",ex);
        }
    }
 
    @Override
+   @Transactional
    public void actualizarTarifaItem(int id, long tarifa) throws ExcepcionServiciosAlquiler {
 	   try {
-		   servicioAlquilerItemsStub.actualizarTarifaItem(id, tarifa);
+		   itemDAO.actualizarTarifa(id, tarifa);
 	   } catch (Exception ex) {
            throw new ExcepcionServiciosAlquiler("Error al consultar el costo",ex);
        }
    }
    @Override
+   @Transactional
    public void registrarItem(Item i) throws ExcepcionServiciosAlquiler {
 	   try {
 		   itemDAO.save(i);
@@ -156,7 +169,18 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
    }
 
    @Override
+   @Transactional
    public void vetarCliente(long docu, boolean estado) throws ExcepcionServiciosAlquiler {
-       
+	   try {
+		   if(estado==false) {
+			   clienteDAO.vetar(docu, 0);
+		   }
+		   else {
+			   clienteDAO.vetar(docu, 1);
+		   }
+		   
+	   } catch (PersistenceException ex) {
+           throw new ExcepcionServiciosAlquiler("Error al registrar item",ex);
+       }
    }
 }

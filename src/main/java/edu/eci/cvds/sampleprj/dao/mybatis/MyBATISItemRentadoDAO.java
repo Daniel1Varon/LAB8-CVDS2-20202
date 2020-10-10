@@ -24,7 +24,11 @@ public class MyBATISItemRentadoDAO implements ItemRentadoDAO{
 
 	@Override
 	public ItemRentado load(int ir) throws PersistenceException {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+			return itemRentadoMapper.getItemRentado(ir);
+		}
+		catch(org.apache.ibatis.exceptions.PersistenceException e){
+			throw new PersistenceException("Error al consultar el item rentado "+ir,e);
+		}
 	}
  }

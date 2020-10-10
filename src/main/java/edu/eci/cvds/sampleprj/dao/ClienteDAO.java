@@ -12,4 +12,6 @@ public interface ClienteDAO {
 	public List<Cliente> load() throws PersistenceException;
 	
 	public void save(Cliente cl) throws PersistenceException;
+	
+	public void vetar(long doc,int est) throws PersistenceException;
 }

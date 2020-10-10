@@ -5,10 +5,14 @@
   
 <mapper namespace="edu.eci.cvds.sampleprj.dao.mybatis.mappers.ClienteMapper">
 	
-	<insert parameterType="map" id="insertarItem">
+	<insert parameterType="map" id="insertarCliente">
         insert into VI_CLIENTES (documento,nombre,telefono,direccion,email,vetado)
         values (#{cl.documento},#{cl.nombre},#{cl.telefono},#{cl.direccion},#{cl.email},#{cl.vetado})
     </insert>
+	
+	<update parameterType="map" id="vetarCliente">
+	  update VI_CLIENTES set vetado = #{est} where documento = #{docum}
+	</update>
 	
     <select parameterType="map" id="consultarClientes" resultMap="ClienteResult">
         select
@@ -38,8 +42,7 @@
         FROM VI_CLIENTES as c 
         left join VI_ITEMRENTADO as ir on c.documento=ir.CLIENTES_documento 
         left join VI_ITEMS as i on ir.ITEMS_id=i.id 
-        left join VI_TIPOITEM as ti on i.TIPOITEM_id=ti.id 
-        
+        left join VI_TIPOITEM as ti on i.TIPOITEM_id=ti.id
     </select>
     
     <select parameterType="map" id="consultarCliente" resultMap="ClienteResult">

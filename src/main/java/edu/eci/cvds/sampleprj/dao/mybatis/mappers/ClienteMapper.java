@@ -32,4 +32,6 @@ public interface ClienteMapper {
     
     public void insertarCliente(@Param("cl") Cliente cl);
     
+    public void vetarCliente(@Param("docum") long docum,@Param("est") int est);
+    
 }
