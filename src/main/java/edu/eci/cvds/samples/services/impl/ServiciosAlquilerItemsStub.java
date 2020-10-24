@@ -7,7 +7,6 @@ import edu.eci.cvds.samples.entities.TipoItem;
 import edu.eci.cvds.samples.services.ExcepcionServiciosAlquiler;
 import edu.eci.cvds.samples.services.ServiciosAlquiler;
 
-import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -20,6 +19,7 @@ import java.util.Map;
 public class ServiciosAlquilerItemsStub implements ServiciosAlquiler {
 
    private static final int MULTA_DIARIA=5000;
+   @SuppressWarnings("unused")
    private final static long MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1000;
 
    private final Map<Long,Cliente> clientes;
@@ -157,6 +157,7 @@ public class ServiciosAlquilerItemsStub implements ServiciosAlquiler {
 
    }
 
+   @SuppressWarnings("unused")
    private Cliente consultarClienteConItem(int iditem) throws ExcepcionServiciosAlquiler{
        if (mapaPrestamosPorIdCliente.containsKey(iditem)){  
            long idcli=mapaPrestamosPorIdCliente.get(iditem);
@@ -209,6 +210,7 @@ public class ServiciosAlquilerItemsStub implements ServiciosAlquiler {
 
        Item i1=new Item(ti1, 1, "Los 4 Fantasticos", "Los 4 Fantásticos  es una película de superhéroes  basada en la serie de cómic homónima de Marvel.", java.sql.Date.valueOf("2005-06-08"), 2000, "DVD", "Ciencia Ficcion");
        Item i2=new Item(ti2, 2, "Halo 3", "Halo 3 es un videojuego de disparos en primera persona desarrollado por Bungie Studios.", java.sql.Date.valueOf("2007-09-08"), 3000, "DVD", "Shooter");
+       @SuppressWarnings("unused")
        Item i3=new Item(ti3, 3, "Thriller", "Thriller es una canción interpretada por el cantante estadounidense Michael Jackson, compuesta por Rod Temperton y producida por Quincy Jones.", java.sql.Date.valueOf("1984-01-11"), 2000, "DVD", "Pop");
        Item i4=new Item(ti1, 4, "Los 4 Fantasticos", "Los 4 Fantásticos  es una película de superhéroes  basada en la serie de cómic homónima de Marvel.", java.sql.Date.valueOf("2005-06-08"), 2000, "DVD", "Ciencia Ficcion");
        Item i5=new Item(ti2, 5, "Halo 3", "Halo 3 es un videojuego de disparos en primera persona desarrollado por Bungie Studios.", java.sql.Date.valueOf("2007-09-08"), 3000, "DVD", "Shooter");
@@ -241,6 +243,7 @@ public class ServiciosAlquilerItemsStub implements ServiciosAlquiler {
    }
    
    public static void main(String args[]) {
+	   @SuppressWarnings("unused")
 	   ServiciosAlquilerItemsStub servicio= new ServiciosAlquilerItemsStub();
    }
 }

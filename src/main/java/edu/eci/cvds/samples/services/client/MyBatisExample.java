@@ -36,6 +36,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
  *
  * @author hcadavid
  */
+@SuppressWarnings("unused")
 public class MyBatisExample {
 
     /**

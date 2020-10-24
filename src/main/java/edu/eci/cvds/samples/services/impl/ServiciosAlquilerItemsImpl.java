@@ -18,10 +18,12 @@ import java.util.List;
  */
 public class ServiciosAlquilerItemsImpl implements ServiciosAlquiler{
 
-    @Inject
+    @SuppressWarnings("unused")
+	@Inject
     private ClienteDAO clienteDAO;
 
-    @Inject
+    @SuppressWarnings("unused")
+	@Inject
     private ItemDAO itemDAO;
 
     @Override
